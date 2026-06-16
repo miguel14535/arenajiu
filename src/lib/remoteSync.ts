@@ -13,7 +13,6 @@ const TABLES: TableConfig[] = [
   { key: 'arena_sales', table: 'sales' },
   { key: 'arena_sale_items', table: 'sale_items' },
   { key: 'arena_suppliers', table: 'suppliers' },
-  { key: 'arena_admins', table: 'admins' },
 ];
 
 const timers: Record<string, number> = {};
@@ -136,7 +135,9 @@ export async function initializeRemoteSync(): Promise<void> {
 
     localStorage.setItem('arena_last_remote_sync', new Date().toISOString());
   } catch (error) {
-    console.error('Falha ao sincronizar com Supabase:', error);
+    console.error('Falha ao sincronizar com Supabase:');
+console.error(error);
+console.error(JSON.stringify(error, null, 2));
   }
 }
 
@@ -155,7 +156,9 @@ export function syncLocalKeyToRemote(key: string): void {
 
   timers[key] = window.setTimeout(() => {
     replaceRemoteRows(config).catch(error => {
-      console.error(`Falha ao enviar ${config.table} para Supabase:`, error);
+      console.error(`Falha ao enviar ${config.table} para Supabase:`);
+console.error(error);
+console.error(JSON.stringify(error, null, 2));
     });
   }, 300);
 }

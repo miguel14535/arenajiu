@@ -135,7 +135,9 @@ export async function initializeRemoteSync(): Promise<void> {
 
     localStorage.setItem('arena_last_remote_sync', new Date().toISOString());
   } catch (error) {
-    console.error('Falha ao sincronizar com Supabase:', error);
+    console.error('Falha ao sincronizar com Supabase:');
+console.error(error);
+console.error(JSON.stringify(error, null, 2));
   }
 }
 
@@ -154,7 +156,9 @@ export function syncLocalKeyToRemote(key: string): void {
 
   timers[key] = window.setTimeout(() => {
     replaceRemoteRows(config).catch(error => {
-      console.error(`Falha ao enviar ${config.table} para Supabase:`, error);
+      console.error(`Falha ao enviar ${config.table} para Supabase:`);
+console.error(error);
+console.error(JSON.stringify(error, null, 2));
     });
   }, 300);
 }
